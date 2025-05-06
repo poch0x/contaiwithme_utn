@@ -1,0 +1,122 @@
+.nav-color {
+  background-color: #243642;
+  /* Color de fondo */
+}
+
+.servicios-bg {
+  background-color: #629584;
+  /* Color de fondo */
+}
+
+.empresas-bg {
+  background-color: #F0FBFC;
+  /* Color de fondo */
+}
+
+/* Estilo para los enlaces del footer */
+.footer-link {
+  color: white;
+  /* Color blanco */
+  text-decoration: none !important;
+  /* Quitar subrayado */
+  margin-right: 15px;
+  /* Espaciado entre los enlaces */
+}
+
+.footer-link:hover {
+  color: #ff9900;
+  /* Color cuando el enlace es hover */
+}
+
+.footer-links a:last-child {
+  margin-right: 0;
+  /* Eliminar el margen en el último enlace */
+}
+
+/* Estilo personalizado para las imágenes de los logos */
+.logo-size {
+  width: 140px;
+  /* Define un ancho fijo */
+  height: 140px;
+  /* Define un alto fijo */
+  object-fit: contain;
+  /* Asegura que las imágenes mantengan su proporción */
+}
+
+/* @media (max-width: 768px) {
+  .carousel-item .row>.col-12 {
+    display: flex;
+    justify-content: center;
+  }
+} */
+
+.color1 {
+  background-color: #F0738F;
+}
+
+.color2 {
+  background-color: #0CF86C;
+}
+
+.color3 {
+  background-color: #0CACF8;
+}
+
+.colores1 {
+  font-size: 24px;
+  color: yellow;
+}
+
+/* Personalización del navbar-toggler */
+.navbar-toggler.custom-toggler {
+  border: none;
+  /* Elimina el borde predeterminado */
+}
+
+/* Asegurar visibilidad de las 3 líneas */
+.navbar-toggler-icon {
+  background-image: none;
+  /* Elimina la imagen SVG predeterminada */
+  display: inline-block;
+  width: 30px;
+  height: 22px;
+  position: relative;
+}
+
+/* Estilo de las líneas */
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after,
+.navbar-toggler-icon span {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 3px;
+  /* Grosor de las líneas */
+  background-color: rgb(156, 156, 156);
+  /* Color de las líneas */
+  border-radius: 2px;
+  /* Bordes redondeados */
+  position: absolute;
+  transition: all 0.3s ease;
+  /* Transición suave */
+}
+
+/* Línea superior */
+.navbar-toggler-icon::before {
+  top: 0;
+}
+
+/* Línea intermedia */
+.navbar-toggler-icon span {
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+}
+
+/* Línea inferior */
+.navbar-toggler-icon::after {
+  bottom: 0;
+}
+
+
+

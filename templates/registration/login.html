@@ -1,0 +1,71 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Log in" %}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header text-center text-white" style="background-color: #243642;">
+                    <h2 class="mb-0">{% trans "Login" %}</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">{% trans "Ingresar" %}</button>
+                        </div>
+                        <div id="spinner" class="d-none text-center mt-3">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">{% trans "Iniciando sesión..." %}</p>
+                        </div>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </form>
+                    <hr>
+                    <p class="text-center">
+                        <small>
+                            {% trans "Forgot your password?" %}
+                            <a href="{% url 'auth_password_reset' %}" class="text-decoration-none">Reset it
+                            </a>
+                        </small>
+                    </p>
+                    <p class="text-center">
+                        <small>
+                            {% trans "Not a member?" %}
+                            <a href="{% url 'registration_register' %}" class="text-decoration-none">Register
+                            </a>
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Se agrega spinner al iniciar sesion -->
+<script>
+    document.querySelector('form').addEventListener('submit', function (event) {
+        // Evitar que el formulario se envíe inmediatamente
+        event.preventDefault();
+
+        // Mostrar el spinner
+        document.getElementById('spinner').classList.remove('d-none');
+
+        // Deshabilitar el botón de enviar para evitar múltiples envíos
+        document.querySelector('button[type="submit"]').disabled = true;
+
+        // Simular un retraso de 3 segundos (3000 milisegundos)
+        setTimeout(function () {
+            // Enviar el formulario después del retraso
+            event.target.submit();
+        }, 2000); // Cambia este valor para ajustar el tiempo de retraso
+    });
+</script>
+{% endblock %}

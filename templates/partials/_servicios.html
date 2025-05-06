@@ -1,0 +1,220 @@
+{% load static %}
+
+<style>
+    /* Estilos para las tarjetas */
+    .card {
+        border: none;
+        /* Elimina el borde predeterminado */
+        border-radius: 15px;
+        /* Bordes redondeados */
+        overflow: hidden;
+        /* Asegura que el contenido no se desborde */
+        background: rgba(255, 255, 255, 0.9);
+        /* Fondo semi-transparente */
+        backdrop-filter: blur(10px);
+        /* Efecto de desenfoque */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Sombra suave */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Transición suave */
+    }
+
+    /* Efecto hover para las tarjetas */
+    .card:hover {
+        transform: translateY(-10px);
+        /* Eleva la tarjeta */
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        /* Sombra más pronunciada */
+    }
+
+    /* Estilos para la imagen de la tarjeta */
+    .card-img-top {
+        border-top-left-radius: 15px;
+        /* Bordes redondeados en la parte superior */
+        border-top-right-radius: 15px;
+    }
+
+    /* Estilos para el título de la tarjeta */
+    .card-title {
+        font-size: 1.5rem;
+        /* Tamaño del título */
+        font-weight: bold;
+        /* Texto en negrita */
+        color: #243642;
+        /* Color del texto */
+    }
+
+    /* Estilos para el texto de la tarjeta */
+    .card-text {
+        font-size: 1rem;
+        /* Tamaño del texto */
+        color: #555;
+        /* Color del texto */
+    }
+</style>
+
+<section class="text-white py-5 servicios-bg" id="servicios">
+    <div class="container">
+        <h2 id="nuestrosServicios" class="text-center text-black fw-bold mb-4">Nuestros Servicios</h2>
+        <div id="servicesCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for i in servicios %}
+                {% if forloop.counter0|divisibleby:4 %}
+                <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                    <div class="row justify-content-center">
+                        {% endif %}
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-3 text-center servicio">
+                            <div class="card bg-light text-dark shadow-sm mb-3 mx-auto" style="max-width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ i.nombre }}</h5>
+                                    <img src="{% static i.imagen %}" class="card-img-top" alt="{{ i.nombre }}"
+                                        style="height: 200px; object-fit: cover;">
+                                    <p class="card-text mt-3">{{ i.descripcion }}</p>
+                                    <!-- Botón para abrir el modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#ventajasModal"
+                                        onclick="mostrarVentajasDesdeLocalStorage({{ i.id }})">
+                                        Ver Ventajas
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:4 or forloop.last %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para mostrar las ventajas -->
+<div class="modal fade" id="ventajasModal" tabindex="-1" aria-labelledby="ventajasModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ventajasModalLabel">Ventajas del Servicio</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="ventajasTexto"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Incluye GSAP y ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Animaciones con GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animación del título "Nuestros Servicios"
+        gsap.from("#nuestrosServicios", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: "#nuestrosServicios",
+                start: "top 80%",
+                toggleActions: "play none none none"
+            }
+        });
+
+        // Animación de las tarjetas de servicios
+        gsap.utils.toArray(".servicio").forEach((servicio, index) => {
+            gsap.from(servicio, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: "power3.out",
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: servicio,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+
+        // Obtener servicios al cargar la página
+        obtenerServicios();
+
+        // Listener para el evento 'hidden.bs.modal'
+        const ventajasModal = document.getElementById('ventajasModal');
+        ventajasModal.addEventListener('hidden.bs.modal', function () {
+            limpiarModal();
+            // Recargar la página después de cerrar el modal
+            location.reload();
+        });
+    });
+
+    // Función para obtener los servicios mediante AJAX
+    function obtenerServicios() {
+        fetch("{% url 'obtener_servicios' %}")
+            .then(response => response.json())
+            .then(data => {
+                // Almacena los servicios en el localStorage
+                localStorage.setItem('servicios', JSON.stringify(data));
+                console.log("Servicios almacenados en localStorage:", data);
+            })
+            .catch(error => {
+                console.error("Error al obtener los servicios:", error);
+            });
+    }
+
+    // Función para limpiar el modal y restaurar el estado de la página
+    function limpiarModal() {
+        // Limpia el contenido del modal al cerrarse
+        document.getElementById('ventajasTexto').textContent = '';
+
+        // Elimina el backdrop manualmente
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+
+        // Elimina la clase 'modal-open' del body para habilitar el scroll
+        document.body.classList.remove('modal-open');
+        // Restaura el padding-right que Bootstrap podría haber modificado
+        document.body.style.paddingRight = '';
+    }
+
+    // Función para mostrar las ventajas del servicio seleccionado
+    function mostrarVentajasDesdeLocalStorage(servicioId) {
+        // Recupera los servicios del localStorage
+        const servicios = JSON.parse(localStorage.getItem('servicios'));
+
+        // Busca el servicio correspondiente al ID
+        const servicio = servicios.find(s => s.id === servicioId);
+
+        // Recupera el elemento donde se mostrarán las ventajas
+        const ventajasTexto = document.getElementById('ventajasTexto');
+
+        // Muestra las ventajas en el modal
+        if (servicio && servicio.ventajas) {
+            ventajasTexto.textContent = servicio.ventajas;
+        } else {
+            ventajasTexto.textContent = 'No hay ventajas disponibles para este servicio.';
+        }
+
+        // Abre el modal
+        const ventajasModal = new bootstrap.Modal(document.getElementById('ventajasModal'));
+        ventajasModal.show();
+    }
+</script>

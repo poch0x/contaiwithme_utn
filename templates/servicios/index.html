@@ -1,0 +1,12 @@
+{% load static %}
+{% include 'partials/_head.html' %}
+{% include 'partials/_navbar.html' %}
+
+<br>
+<h1>DASHBOARDdddd</h1>
+{% if user.is_authenticated %}
+  <p>Bienvenido, {{ user.username }}!</p>
+
+{% else %}
+  <p>No estás logueado.</p>
+{% endif %}

@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'partials/_head.html' %}
+</head>
+
+<body class="d-flex flex-column min-vh-100"> <!-- Usamos Flexbox en el body -->
+
+    {% include 'partials/_navbar.html' %}
+
+    <div class="flex-grow-1">  <!-- Esto hace que el contenido ocupe todo el espacio disponible -->
+        {% block content %}
+            {% include 'precios/_partials/_hero.html' %}
+        {% endblock %}
+    </div>
+
+    {% include 'partials/_footer.html' %} <!-- El footer siempre quedará al final -->
+</body>

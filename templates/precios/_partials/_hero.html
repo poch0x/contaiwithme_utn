@@ -1,0 +1,122 @@
+<div class="container text-center py-5">
+    <h1 class="display-4 mb-4">PRECIOS</h1>
+    <p class="lead text-muted mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae libero
+        molestias itaque, tempora
+        necessitatibus quo quis explicabo aspernatur quas!</p>
+
+    <!-- Toggle Switch -->
+    <div class="new-pricing-toggle-container bg-light p-4 rounded shadow-sm mb-4">
+        <div class="toggle-row-2 d-flex align-items-center justify-content-center">
+            <div class="pricingtoggletext monthly-toggle text-primary h5 mb-0" id="toggle-label-yearly">PAY YEARLY</div>
+
+            <div class="toggle-contain position-relative mx-3">
+                <input type="checkbox" id="pricingToggle" class="d-none">
+                <label for="pricingToggle" class="toggle-label d-flex align-items-center">
+                    <div class="toggle-dot-green"></div>
+                </label>
+            </div>
+
+            <div class="pricingtoggletext monthly-toggle h5 mb-0" id="toggle-label-monthly">PAY MONTHLY</div>
+        </div>
+
+        <div class="pricingsavings text-muted mt-3">Save <strong class="text-success">20%</strong> with annual billing.
+        </div>
+    </div>
+
+    <!-- Precios -->
+    <div class="pricing-options mt-5">
+        <!-- Aquí puedes incluir el partial _nuevoprecio.html -->
+        {% include 'precios/_partials/_nuevoprecio.html' %}
+
+    </div>
+</div>
+
+<style>
+    /* Contenedor del toggle */
+    .new-pricing-toggle-container {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    /* Estilos para el toggle */
+    .toggle-contain {
+        width: 60px;
+        height: 30px;
+        background: #e9ecef;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .toggle-label {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: #e9ecef;
+        border-radius: 30px;
+        transition: background 0.3s;
+    }
+
+    .toggle-dot-green {
+        width: 24px;
+        height: 24px;
+        background: #28a745;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 4px;
+        transform: translateY(-50%);
+        transition: left 0.3s, background 0.3s;
+    }
+
+    /* Cuando el toggle está activado */
+    input#pricingToggle:checked+.toggle-label .toggle-dot-green {
+        left: calc(100% - 28px);
+        background: #007bff;
+    }
+
+    input#pricingToggle:checked+.toggle-label {
+        background: #007bff;
+    }
+
+    /* Resaltado del texto activo */
+    .text-primary {
+        font-weight: bold;
+        color: #007bff !important;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        const toggleSwitch = $("#pricingToggle");
+        const yearlyLabel = $("#toggle-label-yearly");
+        const monthlyLabel = $("#toggle-label-monthly");
+
+        // Precios anuales y mensuales para cada plan
+        const prices = {
+            starter: { yearly: "$99", monthly: "$10" },
+            growth: { yearly: "$199", monthly: "$20" },
+            enterprise: { yearly: "$499", monthly: "$50" }
+        };
+
+        toggleSwitch.on("change", function () {
+            if (toggleSwitch.is(":checked")) {
+                yearlyLabel.removeClass("text-primary");
+                monthlyLabel.addClass("text-primary");
+                // Cambiar precios a mensuales
+                $("#starter-price").html(`${prices.starter.monthly} <span class='small'>/month</span>`);
+                $("#growth-price").html(`${prices.growth.monthly} <span class='small'>/month</span>`);
+                $("#enterprise-price").html(`${prices.enterprise.monthly} <span class='small'>/month</span>`);
+            } else {
+                yearlyLabel.addClass("text-primary");
+                monthlyLabel.removeClass("text-primary");
+                // Cambiar precios a anuales
+                $("#starter-price").html(`${prices.starter.yearly} <span class='small'>/year</span>`);
+                $("#growth-price").html(`${prices.growth.yearly} <span class='small'>/year</span>`);
+                $("#enterprise-price").html(`${prices.enterprise.yearly} <span class='small'>/year</span>`);
+            }
+        });
+    });
+</script>

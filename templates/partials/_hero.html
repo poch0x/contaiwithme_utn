@@ -1,0 +1,49 @@
+{% load static %}
+
+<!-- Incluir el archivo CSS -->
+<link rel="stylesheet" href="{% static 'css/partials/hero.css' %}">
+
+<section class="fondo-transparente bg-light text-center d-flex align-items-center justify-content-center"
+    style="min-height: 50vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold text-white titulo">Revoluciona tu empresa con IA</h1>
+                <br>
+                <h6 class="subtitulo text-white">Bienvenido a CONTAIWITHME, la próxima generación de inteligencia artificial
+                    generativa.</h6>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Incluye GSAP y ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        gsap.registerPlugin(ScrollTrigger);
+
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".titulo",
+                start: "top 80%",  // Inicia cuando el 80% del viewport toca el elemento
+                toggleActions: "play none none none"
+            }
+        });
+
+        tl.from(".titulo", {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            ease: "power3.out"
+        })
+            .from(".subtitulo", {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                ease: "power3.out"
+            }, "-=0.5"); // Comienza 0.5s antes de que termine la animación del título
+    });
+</script>

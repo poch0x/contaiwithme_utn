@@ -1,0 +1,19 @@
+$(document).ready(function () {
+    // Evento al hacer clic en el botón "Saludar"
+    $('#saludo').on('click', function (event) {
+        // Evitar el comportamiento por defecto del botón (si es necesario)
+        event.preventDefault();
+
+        // Obtener el valor del input con id="nombre"
+        var nombre = $('#nombre').val().trim();
+
+        // Verificar si el campo no está vacío
+        if (nombre !== '') {
+            // Mostrar el saludo en una alerta
+            alert('¡Hola, ' + nombre + '!');
+        } else {
+            // Mostrar un mensaje de error si el campo está vacío
+            alert('Por favor, ingresa tu nombre.');
+        }
+    });
+});

@@ -1,0 +1,14 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+
+
+{% block content %}
+    <h2>Contenido de dinamico de Configuracion</h2>
+    <button id="saludito" >Saludando</button>
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/scripts/dashboard/configuracion.js' %}"></script>
+{% endblock script %}
+    
+    

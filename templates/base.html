@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'partials/_head.html' %}
+</head>
+
+<body class="d-flex flex-column min-vh-100"> <!-- Usamos Flexbox en el body -->
+
+    {% include 'partials/_navbar.html' %}
+
+    <div class="container-fluid flex-grow-1 px-0"> <!-- Esto hace que el contenido ocupe todo el espacio disponible -->
+        {% block content %}
+        <section> <!-- Sección sin margen inferior -->
+            {% block hero %}
+            {% include 'partials/_hero.html' %}
+            {% endblock hero %}
+        </section>
+
+        <section> <!-- Sección sin margen inferior -->
+            {% include 'partials/_servicios.html' %}
+        </section>
+        <section> <!-- Sección sin margen inferior -->
+            {% include 'partials/_empresas.html' %}
+        </section>
+        <section> <!-- Sección sin margen inferior -->
+            {% include 'partials/_testimonios.html' %}
+        </section>
+        <section>
+            {% include 'preguntas_frecuentes/preguntas_frecuentes.html' %}
+        </section>
+        {% endblock content %}
+    </div>
+
+    {% include 'partials/_footer.html' %} <!-- El footer siempre quedará al final -->
+
+    <!-- Incluir los scripts al final -->
+    {% include 'partials/scripts/_scripts.html' %}
+
+</body>
+
+</html>

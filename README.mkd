@@ -1,0 +1,14 @@
+# TODO:
+
+* Se podria agregar una app dashboard, para mostrar por ejemplo los dias pendientes que tiene el cliente con la solucion que compro. De tal manera que pueda estar al tanto para renovarla en el caso de seguir con la misma obviamente.
+  
+
+# PREGUNTAS:
+1- preguntar si me haria falta crear la app usuarios, ya que tengo la de clientes o es necesario para gestionar el panel admin.
+2- Consultar como funciona esto para las imagenes:
+
+# {
+MEDIA_URL = '/media/'
+****
+MEDIA_ROOT = BASE_DIR / 'media'
+# } 🆗

@@ -1,0 +1,110 @@
+<style>
+    h1 {
+        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-size: 60px;
+    }
+
+    .p-titulo {
+        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-size: 20px;
+    }
+
+    /* Estilos personalizados para el acordeón */
+    .accordion-button {
+        background-color: transparent !important;
+        /* Fondo transparente */
+        box-shadow: none !important;
+        /* Eliminar sombra */
+        border: 1px solid #dee2e6;
+        /* Borde opcional */
+    }
+
+    .accordion-body {
+        background-color: transparent !important;
+        /* Fondo transparente */
+        border: 1px solid #dee2e6;
+        /* Borde opcional */
+        border-top: none;
+        /* Eliminar borde superior */
+        color: #6c757d;
+        /* Color de texto más claro (gris) */
+        font-size: 16px;
+        /* Tamaño de fuente opcional */
+        line-height: 1.6;
+        /* Espaciado entre líneas */
+    }
+
+    .accordion-item {
+        border: none;
+        /* Eliminar borde del ítem */
+        margin-bottom: 10px;
+        /* Espaciado entre ítems */
+    }
+</style>
+
+<section class="text-black py-5" id="#">
+    <div class="container">
+        <div class="row">
+            <!-- Columna izquierda para el título -->
+            <div class="col-md-5">
+                <h1>Preguntas Frecuentes</h1>
+                <p class="p-titulo">Respuestas rápidas a preguntas comunes</p>
+            </div>
+
+            <!-- Columna derecha para el acordeón -->
+            <div class="col-md-7">
+                <div class="accordion" id="preguntas-acordeon">
+                    <!-- Las preguntas se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Incluye jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Script para cargar las preguntas dinámicamente -->
+<script>
+    $(document).ready(function () {
+        // Hacer la solicitud AJAX
+        $.ajax({
+            url: "{% url 'preguntas_frecuentes' %}",  // URL de la vista
+            method: "GET",
+            success: function (data) {
+                // Verificar en consola los datos recibidos
+                console.log("Datos recibidos:", data);
+
+                // Limpiar el acordeón antes de agregar nuevas preguntas
+                $("#preguntas-acordeon").empty();
+
+                // Iterar sobre las preguntas y agregarlas al acordeón
+                data.forEach(function (pregunta, index) {
+                    var accordionItem = `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                                        ${pregunta.pregunta}
+                                    </button>
+                                </h2>
+                                <div id="collapse${index}" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        ${pregunta.respuesta}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    $("#preguntas-acordeon").append(accordionItem);
+                });
+            },
+            error: function (error) {
+                console.error("Error al cargar las preguntas:", error);
+            }
+        });
+    });
+</script>

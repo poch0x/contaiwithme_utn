@@ -1,0 +1,72 @@
+.logo-size {
+    width: 160px;
+    /* Aumenta el ancho */
+    height: 160px;
+    /* Aumenta el alto */
+    object-fit: contain;
+    /* Asegura que las imágenes mantengan su proporción */
+}
+
+/* Contenedor principal para los logos */
+.logos-container {
+    width: 100%;
+    overflow: hidden;
+    /* Oculta el desbordamiento */
+    white-space: nowrap;
+    /* Evita que los logos se envuelvan */
+    position: relative;
+    /* Necesario para el pseudo-elemento */
+}
+
+/* Efecto de difuminado en los bordes */
+.logos-container::before,
+.logos-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    /* Ancho del área difuminada */
+    z-index: 2;
+    /* Asegura que esté sobre los logos */
+}
+
+/* Difuminado al inicio (izquierda) */
+.logos-container::before {
+    left: 0;
+    background: linear-gradient(to right, #F0FBFC, rgba(240, 251, 252, 0));
+}
+
+/* Difuminado al final (derecha) */
+.logos-container::after {
+    right: 0;
+    background: linear-gradient(to left, #F0FBFC, rgba(240, 251, 252, 0));
+}
+
+
+/* Contenedor de los logos que se desplazan */
+.logos-scroll {
+    display: inline-block;
+    animation: scrollLogos 20s linear infinite;
+    /* Animación infinita */
+}
+
+/* Estilo para cada logo */
+.empresa-logo {
+    display: inline-block;
+    margin: 0 20px;
+    /* Espaciado entre logos */
+}
+
+/* Animación de desplazamiento */
+@keyframes scrollLogos {
+    0% {
+        transform: translateX(0);
+        /* Comienza desde la posición inicial */
+    }
+
+    100% {
+        transform: translateX(-100%);
+        /* Desplaza los logos a la izquierda */
+    }
+}

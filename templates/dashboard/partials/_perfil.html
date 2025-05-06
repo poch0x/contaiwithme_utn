@@ -1,0 +1,42 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Contenido de dinamico de Perfil</h2>
+
+<div class="container mt-4">
+
+    <!-- Formulario -->
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">Formulario de Perfil</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{% url 'perfil' %}">
+                {% csrf_token %}
+                <!-- Campo Nombre -->
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre" name="nombre" value="{{ user.username }}">
+                </div>
+
+                <!-- Botón de Enviar -->
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+                <br>
+
+                <button id="saludo" class="btn btn-primary" type="submit">Saludar</button>
+
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script src="{% static 'js/scripts/dashboard/perfil.js' %}"></script>
+{% endblock script %}
+    

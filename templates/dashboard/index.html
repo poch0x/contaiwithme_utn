@@ -1,0 +1,65 @@
+{% load static %}
+{% include 'partials/_head.html' %}
+{% include 'partials/_navbar.html' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 bg-dark vh-100 text-white p-3">
+            <h4 class="text-center">Menú</h4>
+            <ul class="nav flex-column">
+                <li class="sidebar-item"><a href="{% url 'inicio' %}" class="nav-link text-white">Inicio</a></li>
+                <li class="sidebar-item"><a href="{% url 'perfil' %}" class="nav-link text-white">Perfil</a></li>
+                <li class="sidebar-item"><a href="{% url 'configuracion' %}"
+                        class="nav-link text-white">Configuración</a></li>
+
+                {% if request.user.is_superuser %}
+                <li class="sidebar-item"><a href="{% url 'servicios' %}" class="nav-link text-white">Servicios</a></li>
+                <li class="sidebar-item"><a href="#" class="nav-link text-white">Preguntas Frecuentes</a></li>
+                {% endif %}
+
+                <li class="sidebar-item"><a href="#" class="nav-link text-white">Ayuda</a></li>
+            </ul>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="col-md-9 col-lg-10 p-4">
+            <!-- Spinner de carga -->
+            <div id="loading-spinner" class="text-center" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+                <p class="mt-2">Cargando...</p>
+            </div>
+
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+</div>
+
+{% include 'partials/_footer.html' %}
+{% include 'partials/scripts/_scripts.html' %}
+
+
+
+{% block script %}
+<script>
+    const sidebarLinks = document.querySelectorAll('.sidebar-item .nav-link');
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    function mostrarSpinner(event) {
+        event.preventDefault();
+        loadingSpinner.style.display = 'block';
+
+        setTimeout(() => {
+            window.location.href = event.target.href;
+        }, 1000); // Ajusta el tiempo de retraso según sea necesario
+    }
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', mostrarSpinner);
+    });
+</script>
+
+{% endblock script %}

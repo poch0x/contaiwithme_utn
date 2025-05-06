@@ -1,0 +1,22 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Logged out" %}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 text-center">
+                <div class="card-header text-white" style="background-color: #243642;">
+                    <h2 class="mb-0">{% trans "Logged Out" %}</h2>
+                </div>
+                <div class="card-body p-4">
+                    <p class="lead">{% trans "Successfully logged out" %}.</p>
+                    <a href="{% url 'auth_login' %}" class="btn btn-primary">{% trans "Log in again" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

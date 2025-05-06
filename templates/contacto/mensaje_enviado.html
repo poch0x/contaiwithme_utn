@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Mensaje Enviado{% endblock title %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h1 class="card-title mb-0">¡Muchas Gracias!</h1>
+                </div>
+                <div class="card-body text-center">
+                    <p class="lead">El mensaje ha sido enviado correctamente.</p>
+                    <a href="{% url 'contacto' %}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Volver a la página de contacto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

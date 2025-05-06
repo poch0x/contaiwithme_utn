@@ -1,0 +1,10 @@
+{% extends 'dashboard/index.html' %}
+
+{% block content %}
+    <h1>INICIOOO</h1>
+    {% if user.is_authenticated %}
+        <p>Bienvenido, {{ user.username }}!</p>
+    {% else %}
+        <p>No estás logueado.</p>
+    {% endif %}
+{% endblock content %}
