@@ -17,13 +17,21 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from contaiwithme.views import robots_txt
+
+from django.contrib.sitemaps.views import sitemap
+from contaiwithme.sitemaps import ServicioSitemap
 
 
+sitemaps = {
+    'servicios': ServicioSitemap,
+}
 
 urlpatterns = [
     path('', include('principal.urls')),
     path('accounts/', include('registration.backends.default.urls')),
     path('admin/', admin.site.urls),
+    path("robots.txt", robots_txt),
     path('captcha/', include('captcha.urls')),
     # path('soluciones/', include('soluciones.urls')),
     path('clientes/', include('clientes.urls')),
@@ -34,6 +42,8 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),
     path('precios/', include('precios.urls')),
     path('preguntas_frecuentes/', include('preguntas_frecuentes.urls')),
+    
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 
 ] 
 

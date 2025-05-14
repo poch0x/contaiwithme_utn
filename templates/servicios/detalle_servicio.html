@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ servicio.nombre }}</h1>
+    <p><strong>Categoría:</strong> {{ servicio.get_categoria_display }}</p>
+    <p><strong>Descripción:</strong> {{ servicio.descripcion }}</p>
+    <p><strong>Costo:</strong> ${{ servicio.costo_base }}</p>
+    <p><strong>Fecha de publicación:</strong> {{ servicio.fecha_publicacion }}</p>
+    {% if servicio.imagen %}
+      <img src="{{ servicio.imagen.url }}" alt="{{ servicio.nombre }}" width="300">
+    {% endif %}
+    {% if servicio.ventajas %}
+      <p><strong>Ventajas:</strong> {{ servicio.ventajas }}</p>
+    {% endif %}
+  </div>
+{% endblock %}

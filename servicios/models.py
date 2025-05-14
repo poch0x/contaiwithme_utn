@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.html import format_html
 from django.utils import timezone
+from django.urls import reverse
+
 
 class Servicio(models.Model):
     AUTOMATIZACION = 'Automatizacion'
@@ -19,7 +21,8 @@ class Servicio(models.Model):
     costo_base = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  # Usar DecimalField para precios
     categoria = models.CharField(max_length=20, choices=CATEGORIA_SERVICIO, default=None)  # Aumentado el max_length y corregido el default
     imagen = models.ImageField(upload_to="servicios/%Y/%m/%d", blank=True, null=True)  # Corregido el nombre de la carpeta
-    
+    updated_at = models.DateTimeField(auto_now=True)  # Este campo se actualiza en cada save()
+
     # Estado del servicio (activo/inactivo)
     ACTIVO = 'Activo'
     INACTIVO = 'Inactivo'
@@ -40,6 +43,10 @@ class Servicio(models.Model):
             return format_html('<img src="{}" width="100" height="40" />', self.imagen.url)
         print("Imagen no encontrada")
         return "No image"
+    
+    def get_absolute_url(self):
+        
+        return reverse('detalle_servicio', args=[str(self.id)])
 
     
     imagen_html.short_description = 'Imagen'

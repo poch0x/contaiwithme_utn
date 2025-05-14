@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from servicios.models import Servicio
 from django.http import JsonResponse
@@ -28,3 +29,8 @@ def get_servicios(request):
 def obtener_servicios_json(request):
     servicios = Servicio.objects.all().values("id", "nombre", "descripcion", "costo_base", "imagen", "ventajas")
     return JsonResponse(list(servicios), safe=False)
+
+
+def detalle_servicio(request, id):
+    servicio = get_object_or_404(Servicio, id=id)
+    return render(request, 'servicios/detalle_servicio.html', {'servicio': servicio})

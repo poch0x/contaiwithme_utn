@@ -9,6 +9,7 @@ urlpatterns = [
     path('servicios/', views.get_servicios, name="get_servicios"),  # Nueva ruta para obtener todos los servicios
     path('admin/servicios/servicio/<int:servicio_id>/cahnge/get_costo_base/', get_costo_base, name='get_costo_base'),
     path('obtener_servicios/', obtener_servicios_json, name='obtener_servicios'),
-
-
+    
+    path('servicio/<int:id>/', views.detalle_servicio, name='detalle_servicio'),
+   
 ]
